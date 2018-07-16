@@ -11,9 +11,16 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.util.Progressable;
 
 public class HdfsTask01 {
-	public static void main(String[] args) throws IOException {
+	/**
+	 * 运行的时候应该会报错，提示没有权限。第一中方式是修改目录的权限  hdfs dfs -chmod 777 /user/navy
+	 * 第二种方式是在连接的时候指定用户为root
+	 * @param args
+	 * @throws IOException
+	 * @throws InterruptedException 
+	 */
+	public static void main(String[] args) throws IOException, InterruptedException {
 		// 连接到hdfs
-		FileSystem fs = FileSystem.get(URI.create("hdfs://192.168.30.130:9000/"), new Configuration());
+		FileSystem fs = FileSystem.get(URI.create("hdfs://192.168.30.130:9000/"), new Configuration(),"root");
 	
 		// 指定要操作的文件路径
 		Path file = new Path("/user/navy/yc.txt");
