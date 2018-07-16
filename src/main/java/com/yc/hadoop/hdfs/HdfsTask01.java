@@ -19,11 +19,13 @@ public class HdfsTask01 {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws IOException, InterruptedException {
+		Configuration conf = new Configuration();
+		conf.set("dfs.replication", "1");  // 默认情况下副本数为3，这样当追加内容到文件中时就会报错，因为没有那么多副本数，所以我们可以设置文件创建时的副本数
 		// 连接到hdfs
-		FileSystem fs = FileSystem.get(URI.create("hdfs://192.168.30.130:9000/"), new Configuration(),"root");
+		FileSystem fs = FileSystem.get(URI.create("hdfs://192.168.30.130:9000/"), conf, "root");
 	
 		// 指定要操作的文件路径
-		Path file = new Path("/user/navy/yc.txt");
+		Path file = new Path("/user/navy/navy.txt");
 		
 		// 判断该文件是否存在
 		if (fs.exists(file)){
